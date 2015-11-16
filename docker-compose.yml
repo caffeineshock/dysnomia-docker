@@ -1,0 +1,20 @@
+db:
+  image: postgres
+  volumes:
+  - ./data:/var/lib/postgresql/data
+redis:
+  image: redis
+web:
+  build: .
+  command: bin/dysnomia
+  environment:
+    - RAILS_ENV=development
+  volumes:
+    - ./source:/var/www/dysnomia
+    - /etc/localtime:/etc/localtime
+  ports:
+    - "3000:3000"
+    - "9292:9292"
+  links:
+    - db
+    - redis
