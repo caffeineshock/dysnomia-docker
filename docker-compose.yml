@@ -1,17 +1,21 @@
 db:
   image: postgres
+  environment:
+    - TZ=Europe/Berlin
   volumes:
   - ./data:/var/lib/postgresql/data
 redis:
   image: redis
+  environment:
+    - TZ=Europe/Berlin
 web:
   build: .
   command: bin/dysnomia
   environment:
     - RAILS_ENV=development
+    - TZ=Europe/Berlin
   volumes:
     - ./source:/var/www/dysnomia
-    - /etc/localtime:/etc/localtime
   ports:
     - "3000:3000"
     - "9292:9292"
